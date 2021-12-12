@@ -7,7 +7,7 @@
 
 	myearth = new Earth( 'myearth', {
 
-		location: { lat: 20, lng: 90 },
+		location: { lat: 28, lng: 48 },
 		light: 'none',		
 		mapLandColor : '#a5cb7b',
 		mapSeaColor : '#bbe6e9'
@@ -40,22 +40,20 @@
 
 		// add photo pins
 		
-		for ( var i=0; i < photos.length; i++ ) {
-		
+		for ( var i=0; i < data.length; i++ ) {
 			var marker = this.addMarker( {
-			
-				mesh : "Marker",
-				color: (i % 2 == 0) ? '#3a6a39' : '#6a5739',
-				location : photos[i].location,
-				scale: 0.01,
-				offset: 1.6,
+				mesh : ["Pin","Needle"],
+				color: (i % 2 == 0) ? '#3a6a39' : '#C64444',
+                color2: '#C64444',
+				location : { lat:data[i]['lat'] , lng:data[i]['lon'] },//photos[i].location,
+				scale: 0.0005,
+				offset: 0.1,
 				visible: false,
 				transparent: true,
 				hotspot: true,
 				hotspotRadius : 0.75,
 				hotspotHeight : 1.3,						
-				
-				photo_info: photos[i]
+				photo_info: data[i]['headline']
 				
 			} );
 			
@@ -64,9 +62,9 @@
 			// animate marker
 			setTimeout( (function() {
 				this.visible = true;
-				this.animate( 'scale', 0.9, { duration: 140 } );
-				this.animate( 'offset', 0, { duration: 1100, easing: 'bounce' } );
-			}).bind(marker), 280 * i );
+				this.animate( 'scale', 0.5, { duration: 10 } );
+				this.animate( 'offset', 0, { duration: 200, easing: 'bounce' } );
+			}).bind(marker), 50 * i );
 		}
 		
 	} );
@@ -86,15 +84,12 @@
 
 	var current_marker, auto_rotate;
 
-
 	function openPhoto() {
 
 	// close current photo
 	if ( current_marker ) {
-		
 		closePhoto();
 		window.setTimeout( openPhoto.bind(this), 120 );
-		
 		return;
 	}
 
@@ -103,7 +98,6 @@
 		auto_rotate = true;
 	}
 
-
 	document.getElementById('photo').style.backgroundImage = "url("+ this.photo_info.src +")";
 
 	photo_overlay.location = this.location;
@@ -111,9 +105,9 @@
 
 	setTimeout( function(){
 		document.getElementById('photo').className = 'photo-appear';
-	}, 120);
+	}, 20);
 
-	this.animate( 'scale', 0.001, { duration: 150 } );
+	this.animate( 'scale', 0.001, { duration: 20 } );
 	current_marker = this;
 
 	}

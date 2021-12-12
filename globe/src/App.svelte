@@ -1,15 +1,17 @@
 
 <script>
 	import Globe from './Globe.svelte';
+	import Momo from './Momo.svelte';
 	import { onMount } from 'svelte';
 
+	let url = "https://raw.githubusercontent.com/cankadir/GlobalNews/main/DATA/NYT_Climate.json";
 
+	//Load Data
 	let data;
 	onMount(async () => {
-		const res = await fetch(`https://raw.githubusercontent.com/cankadir/GlobalNews/main/DATA/NYT_Climate.json?token=ALAVRLOU3VEELMLKBZWIWR3BWVLS6`);
-		data = await res.json();
-
-		console.log( data )
+		const res = await fetch( url );
+		let data_lots = await res.json();
+		data = data_lots;
 	});
 
 </script>
@@ -20,7 +22,9 @@
 </svelte:head>
 
 
-<body>
+{#if data}
 	<Globe {data}/>
-</body>
+{:else}
+	<p> Please Wait...</p>
+{/if}
 
