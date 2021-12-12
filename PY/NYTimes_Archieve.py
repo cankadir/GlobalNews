@@ -68,3 +68,9 @@ gdf.head()
 #%% Export
 
 df.to_json( r'C:\Users\cansu\Desktop\t\NYT_Climate.json')
+
+#%%
+import pandas as pd
+
+df = pd.read_json( r'C:\Users\cansu\Desktop\t\NYT_Climate.json')
+df.to_json( r'D:\STORED\GIT_REPO\GlobalNews\DATA\NYT_Climate.json' , orient='records')

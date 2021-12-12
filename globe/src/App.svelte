@@ -6,7 +6,7 @@
 
 	let data;
 	onMount(async () => {
-		const res = await fetch(`https://jsonplaceholder.typicode.com/photos?_limit=20`);
+		const res = await fetch(`https://raw.githubusercontent.com/cankadir/GlobalNews/main/DATA/NYT_Climate.json?token=ALAVRLOU3VEELMLKBZWIWR3BWVLS6`);
 		data = await res.json();
 
 		console.log( data )
